@@ -1,4 +1,5 @@
 cmake-build-debug
+cmake-build-desktop
 cmake-build-web
 
 vendor/lua

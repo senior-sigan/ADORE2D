@@ -7,13 +7,13 @@ desktop: desktop_reload desktop_build
 clean: web_clean desktop_clean
 
 desktop_clean:
-	rm -rf cmake-build-debug
+	rm -rf cmake-build-desktop
 
 desktop_reload:
-	cmake -Bcmake-build-debug
+	cmake -Bcmake-build-desktop
 
 desktop_build:
-	cmake --build cmake-build-debug -j 4
+	cmake --build cmake-build-desktop -j 4
 
 web_clean:
 	rm -rf cmake-build-web
@@ -33,5 +33,5 @@ vendor_zip:
 vendor_unzip:
 	unzip vendor.zip
 
-run_game:
-	cd ludum_46; ../cmake-build-debug/adore2d main.js
+run: desktop
+	./cmake-build-desktop/adore2d examples/lua/main.lua
