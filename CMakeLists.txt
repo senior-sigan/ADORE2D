@@ -11,7 +11,9 @@ file(GLOB_RECURSE HEADERS src/*.h)
 
 set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/thirdparty)
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+file(GLOB_RECURSE DUKTAPE_SOURCES ${THIRDPARTY_DIR}/duktape-2.7.0/src-noline/*.c)
+
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${DUKTAPE_SOURCES})
 
 # warning level
 if(MSVC)
@@ -25,6 +27,8 @@ else()
         -Wextra
         -Wno-unused-command-line-argument
         -Wno-unused-parameter
+
+        -Wno-unused-but-set-variable
     )
 endif()
 
@@ -63,11 +67,12 @@ if(EMSCRIPTEN)
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif()
 
-add_subdirectory(${THIRDPARTY_DIR}/raylib)
+add_subdirectory(${THIRDPARTY_DIR}/raylib-5.5)
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-target_include_directories(${PROJECT_NAME} PUBLIC SYSTEM ${THIRDPARTY_DIR}/raylib/src)
+target_include_directories(${PROJECT_NAME} PUBLIC SYSTEM ${THIRDPARTY_DIR}/raylib-5.5/src)
+target_include_directories(${PROJECT_NAME} PUBLIC SYSTEM ${THIRDPARTY_DIR}/duktape-2.7.0/src-noline)
 target_link_libraries(${PROJECT_NAME} raylib)
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)

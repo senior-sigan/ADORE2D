@@ -1,1 +1,4 @@
 build
+thirdparty/
+!thirdparty/raylib-5.5.tar.xz
+!thirdparty/duktape-2.7.0.tar.xz
